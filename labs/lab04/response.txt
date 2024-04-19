@@ -1,0 +1,81 @@
+Lab04 Notes:
+
+Warm-up:
+Write a brief summary of how well Gemma performed on each task
+ - USE_INSTRUCTION_TUNED = True
+   - With USE_INSTRUCTION_TUNED set to True, Gemma performed well. It accurately identified the capital of France and provided a brief description of it.
+ - USE_INSTRUCTION_TUNED = False
+   - With USE_INSTRUCTION_TUNED set to False, Gemma did not perform well. It inaccurately identified the capital of France, and it repetitively generated the phrase "of philosophy" without relevance.
+
+Notice that we expressed these tasks in the form of making reasonable completions of a document, not giving the model instructions. What implications does this have for how useful a language model is?
+ - By expressing these tasks in the form of documents rather than instructions, we are able to get more out of the model's ability to generate coherent text based on context. This shows the model's ability to understand and produce human-like language.
+
+Notice that the model took some times to generate the first token, then generated the rest of the text more quickly(but still not instantly). Why do you think that is?
+ - I think that the model took some time to generate the first token, then generated the rest of the text more quickly because it needs a little bit of time ot set up its processes. Once the model gets starts it's internal processes, it has the ability to generate the rest of the text more quickly becasue it's in a state where it can understand and process the input more efficiently
+
+Few-Shot Learning
+Write a brief summary of how Gemma performed on this taks, as compared with not giving it any examples
+ - USE_INSTRUCTION_TUNED = True
+   - I believe Gemma struggled with this task. It often didn't give the correct answers we expected, especially for identifying the capital of France. Sometimes, it didn't respond correctly at all.
+ - USE_INSTRUCTION_TUNED = False
+   - I think Gemma did much better on these tasks when we gave it some examples. Using the Few-Shot Learning method helped Gemma fill in the missing parts accurately, and it even added more information by noticing patterns in the examples we provided.
+
+Chain of Thought
+What does Gemma predict?
+ - USE_INSTRUCTION_TUNED = True
+   - For this questions, Gemma did not provide the correct answer, it calculated 4 apples. It would try to compute the answer step by step, but the calculations seemed to always be off. So, it did not perform well on these type of questions.
+ - USE_INSTRUCTION_TUNED = False
+   - For this question, Gemma provided the correct answer. It was able to give us a step by step guide of how it got it answer, and it got 10 apples.
+
+How does the generated text change?
+ - USE_INSTRUCTION_TUNED = True
+   - For this questions, Gemma did not provide the correct answer, it calculated 7 apples. It would also try to compute the answer step by step, but the calculations were off.
+ - USE_INSTRUCTION_TUNED = False
+   - For this question thought, it kept on repeating the same sentence over and over again. So, Gemma was never able to provide an answer
+ 
+
+Conversations as Documents
+Describe how the model delimits user text and assistant text in the formatted prompt.
+ - USE_INSTRUCTION_TUNED  = True
+   - The model delimits user text and assistant text using specific markers. When the model is set to True for USE_INSTRUCTION_TUNED, it uses <start_of_turn>user and <start_of_turn>model are used to indicate the beginning of user and assistant text
+ - USE_INSTRUCTION_TUNED = False
+   - When USE_INSTRUCTION_TUNED is set to False, the role specifications for user and assiantant are directly mentioned before their respective text segments
+
+Describe how a model trained to predict the next token would generate an assistant’s response to the question when given this prompt.
+ - A model trained to predict the next word would make the assistant's reply by understanding its role in the conversation and the task at hand from the given prompt. Then, it generates a response that fits with the conversation, using its training on similar dialogue structures.
+
+Use the model’s generate method to generate a completion of this prompt. What does the model predict?
+ - The model is able to generate a great response to the prompt. It provided: "When sunlight enters a cloud, the blue light is scattered more than other colors because it has a shorter wavelength. This means that when we look up at the sky, we see more blue light than any other color". I thought it explained it very well and would've been easily understood to a 2nd-grader, like the prompt said.
+
+Retrieval-Augmented Generation
+Compare the truthfulness of the model’s response with and without context.
+ - With Context, it gave a very detailed description of the options fo rTripletMarginLoss in PyTroch. The options for TripletMarginLoss is margin, p, eps, and swap
+ - Without context, it also gave a very descriptive output, similar to it being given context
+
+We assumed that we’d given the model the exactly most relevant context. Try temporarily changing the model to use all of the docstrings: '\n\n'.join(docstrings.values()). Notice that you get an error: the context length was too big. List two or three characteristics of the architecture and/or training of this model that may lead it to not be able to handle this much context.
+ - Some characteristics of the architecture and/or training of this model that may lead it ot not be able to handle this much context could be:
+ - The token limitation because if the input exceeds this limit, the model cannot process it
+ - The amount of memory that is available during this time. Exceeding memory could reesult in an error
+
+Go back to using a single docstring, but make it the incorrect one (e.g., use CrossEntropyLoss instead of TripletMarginLoss). Compare the truthfulness of the model’s response with the response given the correct context.
+ - Even when given the wrong one, the truthfulness for me was the same as when given the correct one
+
+
+What are some advantages of using a tool like a calculator in a dialogue agent? (If unsure, try asking a few more math questions until you get one that it can’t compute accurately.)
+ - Some advantages of using a tool like a calculator in a dialogue agent would be that it is quick and accurate for answering math problems, and it can handle complex calculations that might be too difficult or time-consuming to do manually.
+What are some potential challenges to getting a model to use a tool correctly? What about risks of using a tool?
+ - Some potential challenges to getting a model to use a tool correctly might be making sure the model understand when and how to use the tool. Also, the tool could provide wrong results if it is not used correctly.
+
+Your Turn
+Some specific questions that they might ask are:
+ - "What CS classes will I take in my first year of college?"
+ - "What are some typical freshman classes taken?"
+ - "What if I want to change my major later in college?"
+ - "How do I find scholarship to help pay for school?"
+ - "What are some CS related clubs available?"
+
+Design system
+In order to design a system that uses a language model to answer these questions we would need to:
+ - Collect data all about Calvin and what they offer
+ - The model would need to be trained to understand and respond to questions that we collected data on
+ - Then from what we have learned from this lab, I think that Few-Shot learning would be a great way to train the model to give responses back to the user
